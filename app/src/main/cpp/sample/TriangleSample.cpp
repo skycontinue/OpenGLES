@@ -58,18 +58,18 @@ void TriangleSample::Draw(int screenW, int screenH)
 
 	if(m_ProgramObj == 0)
 		return;
-
-	glClear(GL_STENCIL_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClear(GL_STENCIL_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
 	// Use the program object
-	glUseProgram (m_ProgramObj);
-
-	// Load the vertex data
-	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, vVertices );
-	glEnableVertexAttribArray (0);
-
-	glDrawArrays (GL_TRIANGLES, 0, 3);
+//	glUseProgram (m_ProgramObj);
+//
+//	// Load the vertex data
+//	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, vVertices );
+//	glEnableVertexAttribArray (0);
+//
+//	glDrawArrays (GL_TRIANGLES, 0, 3);
 	glUseProgram (GL_NONE);
 
 }

@@ -73,20 +73,30 @@ void TextureMapSample::Draw(int screenW, int screenH)
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 
 	GLfloat verticesCoords[] = {
-			-1.0f,  0.5f, 0.0f,  // Position 0
-			-1.0f, -0.5f, 0.0f,  // Position 1
-			1.0f, -0.5f, 0.0f,   // Position 2
-			1.0f,  0.5f, 0.0f,   // Position 3
+			-1.0f,  1.0f, // Triangle 1: 左上 Top left
+			-1.0f, -1.0f, // Triangle 1: 左下 Bottom left
+			1.0f, -1.0f, // Triangle 1: 右下 Bottom right
+			-1.0f,  1.0f, // Triangle 2: 左上 Top left
+			1.0f, -1.0f, // Triangle 2: 右下 Bottom right
+			1.0f,  1.0f  // Triangle 2: 右上 Top right
+	};
+	GLfloat kPixBasicRenderRectangleVertices[] = {
+			-1.0f, -1.0f,
+			1.0f, -1.0f,
+			-1.0f, 1.0f,
+			1.0f, 1.0f
 	};
 
 	GLfloat textureCoords[] = {
-			0.0f,  0.0f,        // TexCoord 0
-			0.0f,  1.0f,        // TexCoord 1
-			1.0f,  1.0f,        // TexCoord 2
-			1.0f,  0.0f         // TexCoord 3
+			0.0f,  0.0f,        // 左上
+			0.0f,  1.0f,        // 左下
+			1.0f,  1.0f,        // 右下
+			0.0f,  0.0f,        // 左上
+			1.0f,  1.0f,        // 右下
+			1.0f,  0.0f         // 右上
 	};
 
-	GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+
 
 	//upload RGBA image data
 	glActiveTexture(GL_TEXTURE0);
@@ -98,8 +108,8 @@ void TextureMapSample::Draw(int screenW, int screenH)
 	glUseProgram (m_ProgramObj);
 
 	// Load the vertex position
-	glVertexAttribPointer (0, 3, GL_FLOAT,
-							GL_FALSE, 3 * sizeof (GLfloat), verticesCoords);
+	glVertexAttribPointer (0, 2, GL_FLOAT,
+							GL_FALSE, 2 * sizeof (GLfloat), verticesCoords);
 	// Load the texture coordinate
 	glVertexAttribPointer (1, 2, GL_FLOAT,
 							GL_FALSE, 2 * sizeof (GLfloat), textureCoords);
@@ -113,9 +123,11 @@ void TextureMapSample::Draw(int screenW, int screenH)
 
 	// Set the RGBA map sampler to texture unit to 0
 	glUniform1i(m_SamplerLoc, 0);
+	GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+//	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+//	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
-
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 }
 
